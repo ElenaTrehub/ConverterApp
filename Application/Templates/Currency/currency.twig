@@ -1,0 +1,27 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+    <script defer src="/ConverterApp/public/js/convert.js" ></script>
+    <form >
+        <div class="form-group ">
+            <label for="formGroupExampleInput">Введите сумму в долларах США</label>
+            <input type="text" class="form-control col-6" id="dollarInput" placeholder="Сумма в долларах США">
+            <div class="form-group">
+                <div id="errorInput" style=" display: none;" class="message alert alert-danger">Сумма некорректна!</div>
+            </div>
+        </div>
+        <div class="form-group ">
+             <select class="form-control col-6" id="currencesList">
+                {% for title in currences %}
+                    <option data-currence-id="{{ title }}">{{ title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <div id="ConvertButton" class="btn btn-primary">Конвертировать</div>
+        </div>
+    </form >
+
+
+
+{% endblock %}

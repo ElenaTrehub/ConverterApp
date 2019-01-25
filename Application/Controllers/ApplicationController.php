@@ -9,12 +9,21 @@
 namespace Application\Controllers;
 
 
+use Application\Utils\APIConverter;
 use Bramus\Router\Router;
 
 class ApplicationController extends BaseController
 {
+    public static $helpApi;
 
     public function Start(){
+
+        session_start ( ) ;
+
+        $_SESSION['countRequest'] = 0;
+
+        ApplicationController::$helpApi= new APIConverter();
+
 
         $router = new Router();
 
