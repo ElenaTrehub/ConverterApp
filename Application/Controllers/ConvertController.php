@@ -37,5 +37,18 @@ class ConvertController extends BaseController
 
         $value = $currencyService->GetExchangeRates($name);
 
+        if($value!=null){
+            $this->json( 200, array(
+                'rate' => $value,
+                'code' => 200
+            ) );
+        }//if
+        else{
+            $this->json( 400, array(
+                'code' => 400
+            ) );
+        }//else
+
+
     }//getSumAction
 }//ConvertController

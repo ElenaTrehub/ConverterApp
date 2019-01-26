@@ -9,42 +9,27 @@
 namespace Application\Services;
 
 
-use Application\Controllers\ApplicationController;
-
 class CurrencyService
 {
 
     public function GetCurrencesAbr(){
 
-        $currences = array("RUB", "PLN", "EUR");
-        return $currences;
+        return arrayAbr;
 
     }//CurrencyService
 
     public function GetExchangeRates($name){
 
-        if($_SESSION['countRequest']===0){
-            $_SESSION['startTime'] = date("H:i:s");
-        }//if
+        $linkStr = link_api.$name.compact;
+        try{
+            $json = file_get_contents($linkStr);
+            $obj = json_decode($json, true);
 
-        $_SESSION['countRequest'] +=1;
-
-        if  ( isset ( $_SESSION [ 'startTime' ] ) )  {
-            $start  =  strtotime ( $_SESSION [ 'startTime' ] ) ;
-            $curr  =  strtotime ( date ( "Ymd h: i: s" ) ) ;
-            $sec  =   abs ( $start  -  $curr ) ;
-
-            if  ( $sec  <  3600 && $_SESSION['countRequest'] > ApplicationController::$helpApi->requestHoure )  {
-                $data  = -1 ;
-            }//if
-            else if($sec  >=  3600 ){
-
-            }
-
-
-        }//if
-
-
+            return $obj;
+        }//try
+        catch (\Exception $exception){
+            return null;
+        }//catch
 
     }//GetExchangeRates
 

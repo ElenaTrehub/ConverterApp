@@ -20,19 +20,25 @@ $(document).ready( function (  ){
                     'name': name,
                 },
                 'success': (data) => {
+                    let status = data.code;
 
-                    let genreId = +data.genreID;
-                    let status = +data.status;
+                    if (status === 200) {
+                        let rate_obj = data.rate;
+                        console.log(rate_obj);
 
-                    if (status === 200 && genreId !== 0) {
-
-                        $('#errorMessage').fadeOut(1000);
-                        $('#successMessage').fadeIn(500).delay( 5000 ).fadeOut( 500 );;
+                        let key = "USD_"+ name;
+                        console.log(key);
+                        let rate = +rate_obj[key];
+                        console.log(rate);
+                        let total = sum*rate;
+                        let totalSum = total.toFixed(2);
+                        $('#totalLabel').text(sum+" USD = "+totalSum+" "+name);
+                        $('#totalLabel').fadeIn(500).delay( 5000 ).fadeOut( 500 );
 
                     }//if
                     else {
-                        $('#successMessage').fadeOut(1000);
-                        $('#errorMessage').fadeIn(500).delay( 5000 ).fadeOut( 500 );;
+                        $('#totalLabel').text("Конвертация не удалась!");
+                        $('#totalLabel').fadeIn(500).delay( 5000 ).fadeOut( 500 );
                     }//else
                 }
 
